@@ -1,12 +1,125 @@
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>Conway's Game of Life</title>
-    <script src="./lib/p5.min.js"></script>
-    <script src="./lib/p5.sound.min.js"></script>
-    <script src="sketch.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive Canvas 2D study of Conway's cellular automaton, with live generation controls and field drawing."
+    />
+    <title>Conway's Game of Life | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="sketch.js" defer></script>
   </head>
   <body>
+    <header class="site-header">
+      <a class="brand" href="https://jefflovell.github.io/hello-world/">KAIZEN<span>.</span></a>
+      <nav aria-label="Project links">
+        <a href="https://jefflovell.github.io/hello-world/#work">Work</a>
+        <a href="https://github.com/jefflovell/game-of-life">GitHub</a>
+      </nav>
+    </header>
+
     <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <h1 id="page-title">Conway's Game of Life</h1>
+          <p>
+            A cellular automaton study: each cell samples its nearest neighbors,
+            survives by density, and leaves a brief trace as the field evolves.
+          </p>
+        </div>
+
+        <div class="stats" aria-label="Simulation statistics">
+          <article>
+            <span>Gen</span>
+            <strong id="generation-count">0</strong>
+          </article>
+          <article>
+            <span>Live</span>
+            <strong id="live-count">0</strong>
+          </article>
+          <article>
+            <span>Mode</span>
+            <strong id="status-label">Running</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="lab" aria-label="Game of Life simulation">
+        <div class="simulation-shell">
+          <canvas
+            id="life-canvas"
+            class="simulation"
+            aria-label="Interactive cell grid"
+          ></canvas>
+        </div>
+
+        <aside class="controls" aria-label="Simulation controls">
+          <label class="select-control" for="seed-select">
+            <span>Specimen</span>
+            <select id="seed-select"></select>
+          </label>
+
+          <div class="rule-card" aria-label="Game of Life rule">
+            <span>Rule</span>
+            <strong>B3 / S23</strong>
+            <p>
+              Seed is the starting cell pattern. Birth at 3 neighbors; survival
+              at 2 or 3.
+            </p>
+          </div>
+
+          <div class="control-row primary-actions">
+            <button id="toggle-run" class="button icon-button" type="button">
+              <span class="icon" aria-hidden="true">Ⅱ</span>
+              <span class="button-label">Pause</span>
+            </button>
+            <button id="step-once" class="icon-button" type="button">
+              <span class="icon" aria-hidden="true">▻Ⅰ</span>
+              <span class="button-label">Step</span>
+            </button>
+          </div>
+
+          <div class="control-row">
+            <button id="randomize-grid" class="icon-button" type="button">
+              <span class="icon" aria-hidden="true">✣</span>
+              <span class="button-label">Seed</span>
+            </button>
+            <button id="clear-grid" class="icon-button" type="button">
+              <span class="icon" aria-hidden="true">□</span>
+              <span class="button-label">Clear</span>
+            </button>
+          </div>
+
+          <label class="slider-control" for="speed-slider">
+            <span>
+              Speed
+              <strong><output id="speed-output" for="speed-slider">8</output> gen/s</strong>
+            </span>
+            <input id="speed-slider" type="range" min="1" max="30" value="8" />
+          </label>
+
+          <label class="slider-control" for="grid-slider">
+            <span>
+              Grid
+              <strong><output id="grid-output" for="grid-slider">66</output> cells</strong>
+            </span>
+            <input id="grid-slider" type="range" min="28" max="96" value="66" />
+          </label>
+
+          <p class="hint">
+            Draw cells directly on the field. Pause, seed, or step the specimen
+            to isolate stable forms and collisions.
+          </p>
+        </aside>
+      </section>
     </main>
   </body>
 </html>
